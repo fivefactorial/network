@@ -13,7 +13,9 @@ import se.fivefactorial.network.packet.Buffer;
 import se.fivefactorial.network.packet.Packet;
 import se.fivefactorial.network.packet.defaults.IntPacket;
 import se.fivefactorial.network.packet.defaults.NullPacket;
+import se.fivefactorial.network.packet.defaults.ResponsePacket;
 import se.fivefactorial.network.packet.defaults.StringPacket;
+import se.fivefactorial.network.packet.defaults.TransmissionPacket;
 
 public class PacketFactory {
 
@@ -25,6 +27,8 @@ public class PacketFactory {
 		addPacket(NullPacket.class);
 		addPacket(IntPacket.class);
 		addPacket(StringPacket.class);
+		addPacket(TransmissionPacket.class);
+		addPacket(ResponsePacket.class);
 	}
 
 	public Class<? extends Packet> addPacket(Class<? extends Packet> packet) {

@@ -6,11 +6,22 @@ import se.fivefactorial.network.packet.Buffer;
 import se.fivefactorial.network.packet.Packet;
 import se.fivefactorial.network.packet.factory.FactoryConstructor;
 
-public class NullPacket extends ActionPacket {
+public class ResponsePacket extends ActionPacket {
+
+	private Packet p;
+
+	public ResponsePacket(Packet p) {
+		this.p = p;
+	}
 
 	@FactoryConstructor
-	public NullPacket() {
+	public ResponsePacket(List<Packet> packages) {
+		p = packages.get(0);
+	}
 
+	@Override
+	public ActionPacket action() {
+		return new NullPacket();
 	}
 
 	@Override
@@ -19,11 +30,11 @@ public class NullPacket extends ActionPacket {
 
 	@Override
 	protected void getPackages(List<Packet> packages) {
+		packages.add(p);
 	}
 
-	@Override
-	public ActionPacket action() {
-		return new NullPacket();
+	public Packet getPacket() {
+		return p;
 	}
 
 }

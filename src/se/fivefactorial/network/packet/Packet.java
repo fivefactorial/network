@@ -37,4 +37,12 @@ public abstract class Packet {
 
 	protected abstract void getPackages(List<Packet> packages);
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Packet) {
+			Packet p = (Packet) obj;
+			return p.getData().equals(getData());
+		}
+		return false;
+	}
 }
