@@ -83,5 +83,9 @@ public class Client {
 
 		}
 	}
+	
+	public void close() {
+		connection.close();
+	}
 
 }
