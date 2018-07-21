@@ -1,4 +1,4 @@
-package se.fivefactorial.network.packet;
+package se.fivefactorial.network;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -37,12 +37,12 @@ public class Buffer {
 	}
 
 	public void addInt(int i) {
-		byte[] array = ByteBuffer.allocate(4).putInt(i).array();
+		byte[] array = intToBytes(i);
 		addArray(array);
 	}
 
 	public int getInt() {
-		return ByteBuffer.wrap(getArray(4)).getInt();
+		return bytesToInt(getArray(4));
 	}
 
 	public void addBuffer(Buffer data) {
@@ -67,11 +67,27 @@ public class Buffer {
 		addInt(s.length());
 		addArray(s.getBytes());
 	}
-	
+
 	public String getString() {
 		int length = getInt();
 		byte[] data = getArray(length);
 		return new String(data);
+	}
+
+	public byte[] toBytes() {
+		byte[] data = new byte[bytes.size()];
+		for (int i = 0; i < bytes.size(); i++) {
+			data[i] = bytes.get(i);
+		}
+		return data;
+	}
+
+	public static int bytesToInt(byte[] bytes) {
+		return ByteBuffer.wrap(bytes).getInt();
+	}
+
+	public static byte[] intToBytes(int i) {
+		return ByteBuffer.allocate(4).putInt(i).array();
 	}
 
 }

@@ -1,11 +1,11 @@
-package se.fivefactorial.network.test.packet;
+package test.se.fivefactorial.network;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
-import se.fivefactorial.network.packet.Buffer;
+import se.fivefactorial.network.Buffer;
 
 public class BufferTest {
 

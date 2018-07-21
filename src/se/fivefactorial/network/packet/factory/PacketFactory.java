@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.fivefactorial.network.packet.Buffer;
+import se.fivefactorial.network.Buffer;
 import se.fivefactorial.network.packet.Packet;
 import se.fivefactorial.network.packet.defaults.IntPacket;
 import se.fivefactorial.network.packet.defaults.NullPacket;

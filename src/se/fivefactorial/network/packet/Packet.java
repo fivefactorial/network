@@ -3,6 +3,8 @@ package se.fivefactorial.network.packet;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.fivefactorial.network.Buffer;
+
 public abstract class Packet {
 
 	public final Buffer getData() {

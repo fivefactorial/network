@@ -1,4 +1,4 @@
-package se.fivefactorial.network.test.packet;
+package test.se.fivefactorial.network.packet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
