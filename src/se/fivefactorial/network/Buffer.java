@@ -19,10 +19,6 @@ public class Buffer {
 		return bytes.size();
 	}
 
-	public void addByte(byte b) {
-		bytes.add(b);
-	}
-
 	public void addArray(byte[] array) {
 		for (byte b : array)
 			bytes.add(b);
@@ -34,6 +30,15 @@ public class Buffer {
 			array[i] = bytes.remove(0);
 		}
 		return array;
+	}
+
+	public void addBoolean(boolean b) {
+		bytes.add(b ? (byte) 1 : (byte) 0);
+	}
+
+	public boolean getBoolean() {
+		byte b = bytes.get(0);
+		return !(b == 0);
 	}
 
 	public void addInt(int i) {

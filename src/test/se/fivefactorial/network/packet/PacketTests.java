@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.fivefactorial.network.UUID;
 import se.fivefactorial.network.packet.Packet;
 import se.fivefactorial.network.packet.defaults.ActionPacket;
+import se.fivefactorial.network.packet.defaults.BooleanPacket;
 import se.fivefactorial.network.packet.defaults.IntPacket;
 import se.fivefactorial.network.packet.defaults.NullPacket;
 import se.fivefactorial.network.packet.defaults.ResponsePacket;
@@ -67,6 +69,31 @@ public class PacketTests {
 			assertEquals(i, ip2.getInt());
 		}
 		assertEquals(ints.size(), n);
+	}
+	
+	@Test
+	public final void testBooleanPacket() {
+		ArrayList<Boolean> bools = new ArrayList<>();
+		bools.add(true);
+		bools.add(false);
+		
+		Class<?> c = pf.addPacket(IntPacket.class);
+		assertNotNull(c);
+		assertEquals(c, IntPacket.class);
+
+		int n = 0;
+		for (boolean b : bools) {
+			n++;
+			BooleanPacket bp = new BooleanPacket(b);
+			Packet p = pf.create(bp.getData());
+			assertEquals(p.getClass(), bp.getClass());
+			assertEquals(p.getData(), bp.getData());
+
+			BooleanPacket bp2 = (BooleanPacket) p;
+			assertEquals(b, bp.getBoolean());
+			assertEquals(b, bp2.getBoolean());
+		}
+		assertEquals(bools.size(), n);
 	}
 
 	@Test
@@ -130,21 +157,32 @@ public class PacketTests {
 		assertNotNull(c);
 		assertEquals(c, TransmissionPacket.class);
 
-		String id = "jeg er et tastatur!";
-		Packet load = new NullPacket();
-		ActionPacket ap = new ResponsePacket(load);
-		TransmissionPacket tp = new TransmissionPacket(id, ap);
+		UUID uuid = new UUID();
+		NullPacket load = new NullPacket();
+		TransmissionPacket tp = new TransmissionPacket(uuid, load);
 
 		Packet p = pf.create(tp.getData());
 
 		assertEquals(p.getClass(), tp.getClass());
 		assertEquals(p.getData(), tp.getData());
 
-		assertEquals(id, tp.getID());
-		assertEquals(ap, tp.getPacket());
+		assertEquals(uuid, tp.getID());
+		assertEquals(load, tp.getPacket());
 		TransmissionPacket tp2 = (TransmissionPacket) p;
-		assertEquals(id, tp2.getID());
-		assertEquals(ap, tp2.getPacket());
+		assertEquals(uuid, tp2.getID());
+		assertEquals(load, tp2.getPacket());
+
+		assertEquals(false, tp.isResponse());
+		
+		TransmissionPacket response = tp.generateResponse();
+		assertEquals(true, response.isResponse());
+
+		TransmissionPacket response2 = (TransmissionPacket) pf.create(response.getData());
+		assertEquals(true, response2.isResponse());
+		
+		ActionPacket ap = response.getPacket();
+		
+		assertEquals(NullPacket.class, ap.getClass());
 	}
 
 }

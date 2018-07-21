@@ -11,6 +11,7 @@ import java.util.Map;
 
 import se.fivefactorial.network.Buffer;
 import se.fivefactorial.network.packet.Packet;
+import se.fivefactorial.network.packet.defaults.BooleanPacket;
 import se.fivefactorial.network.packet.defaults.IntPacket;
 import se.fivefactorial.network.packet.defaults.NullPacket;
 import se.fivefactorial.network.packet.defaults.ResponsePacket;
@@ -29,6 +30,7 @@ public class PacketFactory {
 		addPacket(StringPacket.class);
 		addPacket(TransmissionPacket.class);
 		addPacket(ResponsePacket.class);
+		addPacket(BooleanPacket.class);
 	}
 
 	public Class<? extends Packet> addPacket(Class<? extends Packet> packet) {
