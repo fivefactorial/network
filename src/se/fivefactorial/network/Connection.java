@@ -20,15 +20,15 @@ public class Connection {
 		new Sender().start();
 	}
 
-	public synchronized void send(Buffer buffer) {
+	public void send(Buffer buffer) {
 		outbox.offer(buffer);
 	}
 
-	public synchronized Buffer recieve() {
+	public Buffer recieve() {
 		return inbox.poll();
 	}
 
-	public synchronized void close() {
+	public void close() {
 		try {
 			socket.close();
 		} catch (IOException e) {
@@ -52,7 +52,7 @@ public class Connection {
 					inbox.offer(buffer);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
 			} finally {
 				close();
 			}
@@ -91,7 +91,7 @@ public class Connection {
 					os.flush();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
 			} finally {
 				close();
 			}
