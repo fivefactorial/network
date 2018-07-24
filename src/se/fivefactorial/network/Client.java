@@ -63,8 +63,10 @@ public class Client {
 	private class Handler extends Thread {
 		@Override
 		public void run() {
-			while (true) {
+			while (!connection.isClosed()) {
 				Buffer buffer = connection.recieve();
+				if (buffer == null)
+					continue;
 				Packet p = factory.create(buffer);
 				if (p instanceof TransmissionPacket) {
 					TransmissionPacket transmission = (TransmissionPacket) p;
@@ -81,7 +83,6 @@ public class Client {
 				}
 
 			}
-
 		}
 	}
 

@@ -14,8 +14,8 @@ public class Connection {
 
 	public Connection(Socket socket) {
 		this.socket = socket;
-		inbox = new BufferQueue();
-		outbox = new BufferQueue();
+		inbox = new BufferQueue(socket);
+		outbox = new BufferQueue(socket);
 		new Reciever().start();
 		new Sender().start();
 	}
@@ -33,9 +33,15 @@ public class Connection {
 		return socket.getInetAddress().toString();
 	}
 
+	public boolean isClosed() {
+		return socket.isClosed();
+	}
+
 	public void close() {
 		try {
 			socket.close();
+			inbox.threadDied();
+			outbox.threadDied();
 		} catch (IOException e) {
 			System.err.printf("Tried to close socket, %s\n", e.getMessage());
 		}
@@ -88,8 +94,10 @@ public class Connection {
 		public void run() {
 			try {
 				os = socket.getOutputStream();
-				while (true) {
+				while (!socket.isClosed()) {
 					Buffer buffer = outbox.poll();
+					if (buffer == null)
+						continue;
 					int length = buffer.size();
 					os.write(Buffer.intToBytes(length));
 					os.write(buffer.toBytes());
