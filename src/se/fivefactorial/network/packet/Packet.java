@@ -27,12 +27,11 @@ public abstract class Packet {
 	}
 
 	public int hashName() {
-		String name = getClass().getName();
-		return hash(name);
+		return hash(this.getClass());
 	}
 
-	public int hash(String name) {
-		return name.hashCode();
+	public static int hash(Class<?> packet) {
+		return packet.getSimpleName().hashCode();
 	}
 
 	protected abstract void getLoad(Buffer buffer);

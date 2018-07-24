@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.fivefactorial.network.UUID;
+import se.fivefactorial.network.packet.ActionPacket;
 import se.fivefactorial.network.packet.Packet;
-import se.fivefactorial.network.packet.defaults.ActionPacket;
 import se.fivefactorial.network.packet.defaults.BooleanPacket;
 import se.fivefactorial.network.packet.defaults.IntPacket;
 import se.fivefactorial.network.packet.defaults.NullPacket;

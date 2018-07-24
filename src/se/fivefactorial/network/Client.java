@@ -6,8 +6,8 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
+import se.fivefactorial.network.packet.ActionPacket;
 import se.fivefactorial.network.packet.Packet;
-import se.fivefactorial.network.packet.defaults.ActionPacket;
 import se.fivefactorial.network.packet.defaults.TransmissionPacket;
 import se.fivefactorial.network.packet.factory.PacketFactory;
 

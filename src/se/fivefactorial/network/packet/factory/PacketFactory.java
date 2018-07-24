@@ -48,7 +48,7 @@ public class PacketFactory {
 			throw new PacketFactoryException(
 					"Too many constructors with the FacotryConstructor annotation, only one accepted");
 		}
-		int hash = packet.getName().hashCode();
+		int hash = Packet.hash(packet);
 		Class<? extends Packet> old = packets.put(hash, packet);
 		return old;
 	}
