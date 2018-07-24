@@ -28,6 +28,11 @@ public class Connection {
 		return inbox.poll();
 	}
 
+	@Override
+	public String toString() {
+		return socket.getInetAddress().toString();
+	}
+
 	public void close() {
 		try {
 			socket.close();

@@ -35,7 +35,8 @@ public class Client {
 	public synchronized UUID send(ActionPacket payload) {
 		UUID uuid = new UUID();
 		TransmissionPacket packet = new TransmissionPacket(uuid, payload);
-		connection.send(packet.getData());
+		Buffer data = packet.getData();
+		connection.send(data);
 		return uuid;
 	}
 
@@ -54,7 +55,7 @@ public class Client {
 		inbox.put(uuid, packet);
 		notifyAll();
 	}
-	
+
 	public int getClientID() {
 		return clientID;
 	}
@@ -83,7 +84,7 @@ public class Client {
 
 		}
 	}
-	
+
 	public void close() {
 		connection.close();
 	}
