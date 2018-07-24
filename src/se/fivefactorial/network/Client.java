@@ -60,6 +60,15 @@ public class Client {
 		return clientID;
 	}
 
+	public synchronized boolean isClosed() {
+		return connection.isClosed();
+	}
+
+	@Override
+	public String toString() {
+		return connection.toString();
+	}
+
 	private class Handler extends Thread {
 		@Override
 		public void run() {
