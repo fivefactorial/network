@@ -18,6 +18,7 @@ public class Server extends Thread {
 		this.factory = factory;
 		serverSocket = new ServerSocket(port);
 		clients = new ArrayList<>();
+		start();
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class Server extends Thread {
 	public void interrupt() {
 		close();
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
